@@ -23,7 +23,7 @@ Want to automatically push values from ODIN to some backend process? Now you can
 ```javascript
 const secrets = new ODIN.SuperStorage(new ODIN.SecretStorage("what-you-want", {
     age: { settings: { storageType: ODIN.STORAGE_TYPE.LOCAL, defaultValue: 26 } },
-    gender: { settings: { storageType: ODIN.STORAGE_TYPE.LOCAL, defaultValue: {identity: 'male', real: 'male'} } },
+    security: { settings: { storageType: ODIN.STORAGE_TYPE.LOCAL, defaultValue: {identity: 'IAM', roal: 'ADMIN'} } },
     weight: { settings: { storageType: ODIN.STORAGE_TYPE.LOCAL, defaultValue: 196 } },
 }), 20*1000, (data)=> console.warn("sending data data---->", data))
 ```
