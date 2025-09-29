@@ -1,0 +1,36 @@
+# Source files
+src/
+test/
+example/
+
+# Development files
+rollup.config.js
+babel.config.js
+jest.config.js
+
+# Build artifacts
+*.map
+
+# Dependencies
+node_modules/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Coverage
+coverage/
+
+# Temporary files
+tmp/
+temp/

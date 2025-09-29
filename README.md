@@ -15,10 +15,40 @@ ODIN is a powerful JavaScript library that makes working with local, session, an
 
 ## 🚀 Quick Start
 
+### NPM Installation
+
+```bash
+npm install odin-storage
+```
+
+### CDN Usage
+
+```html
+<script src="https://unpkg.com/odin-storage@latest/dist/odin.umd.js"></script>
+```
+
+### Direct Download
+
 Download the `odin.js` file and include it in your project:
 
 ```html
 <script src="odin.js"></script>
+```
+
+### ES6 Module Import
+
+```javascript
+import ODIN from 'odin-storage';
+// or
+import { AutoStorage, SecretStorage, SuperStorage } from 'odin-storage';
+```
+
+### CommonJS Require
+
+```javascript
+const ODIN = require('odin-storage');
+// or
+const { AutoStorage, SecretStorage, SuperStorage } = require('odin-storage');
 ```
 
 ### Basic Usage - The Mead of Knowledge
@@ -596,7 +626,28 @@ ODIN brings the wisdom of the Norse gods to modern web development, providing a 
 
 ---
 
+## 🌐 Browser Compatibility
+
+ODIN supports all modern browsers with the following minimum requirements:
+
+- **Chrome**: 60+
+- **Firefox**: 55+
+- **Safari**: 11+
+- **Edge**: 79+
+- **Internet Explorer**: Not supported (uses modern Web Crypto API)
+
+### Required Browser APIs
+
+- `localStorage` and `sessionStorage`
+- `window.crypto.subtle` (for encryption features)
+- `JSON.stringify` and `JSON.parse`
+- `Promise` (for async operations)
+
+## 📦 Package Information
+
 **Version**: 1.0.0  
 **License**: MIT  
+**Size**: ~15KB minified, ~5KB gzipped  
 **Repository**: [Your Repository URL]  
-**Documentation**: [Your Documentation URL]
+**Documentation**: [Your Documentation URL]  
+**NPM**: `npm install odin-storage`
