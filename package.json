@@ -31,16 +31,16 @@
     "javascript",
     "typescript"
   ],
-  "author": "Your Name <your.email@example.com>",
+  "author": "Elijah Allen <elijah.a.allen@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/odin-storage.git"
+    "url": "https://github.com/eaallen/odin"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/odin-storage/issues"
+    "url": "https://github.com/eaallen/odin/issues"
   },
-  "homepage": "https://github.com/yourusername/odin-storage#readme",
+  "homepage": "https://github.com/eaallen/odin#readme",
   "devDependencies": {
     "@babel/core": "^7.23.6",
     "@babel/preset-env": "^7.23.6",
