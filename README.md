@@ -26,6 +26,10 @@ npm install odin-storage
 ```html
 <script src="https://unpkg.com/odin-storage@latest/dist/odin.umd.js"></script>
 ```
+Or, for ESM:
+```javascript
+import ODIN from 'https://unpkg.com/odin-storage@1.0.0/dist/odin.esm.js'
+```
 
 ### Direct Download
 
