@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ODIN Storage - Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .example {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border-left: 4px solid #ffd700;
+        }
+        button {
+            background: #ffd700;
+            color: #333;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-weight: bold;
+        }
+        button:hover {
+            background: #ffed4e;
+        }
+        input {
+            padding: 8px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+        }
+        .output {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🪶 ODIN Storage Library Demo</h1>
+        <p style="text-align: center; font-style: italic;">"The All-Father's Wisdom for Modern Web Storage"</p>
+
+        <div class="example">
+            <h3>📝 Basic Storage Example</h3>
+            <input type="text" id="username" placeholder="Enter username" value="Thor Odinson">
+            <input type="text" id="email" placeholder="Enter email" value="thor@asgard.com">
+            <br>
+            <button onclick="saveUserData()">Save User Data</button>
+            <button onclick="loadUserData()">Load User Data</button>
+            <button onclick="clearUserData()">Clear Data</button>
+            <div id="userOutput" class="output"></div>
+        </div>
+
+        <div class="example">
+            <h3>🔒 Secret Storage Example</h3>
+            <input type="password" id="password" placeholder="Enter password" value="mjolnir123">
+            <input type="text" id="secret" placeholder="Enter secret message" value="This is a secret!">
+            <br>
+            <button onclick="saveSecret()">Save Secret</button>
+            <button onclick="loadSecret()">Load Secret</button>
+            <div id="secretOutput" class="output"></div>
+        </div>
+
+        <div class="example">
+            <h3>📊 Storage Type Demo</h3>
+            <button onclick="demoStorageTypes()">Demo All Storage Types</button>
+            <div id="storageOutput" class="output"></div>
+        </div>
+
+        <div class="example">
+            <h3>🔄 Auto-Sync Demo</h3>
+            <input type="text" id="syncData" placeholder="Data to sync" value="Synced data">
+            <button onclick="startSync()">Start Auto-Sync</button>
+            <button onclick="stopSync()">Stop Auto-Sync</button>
+            <div id="syncOutput" class="output"></div>
+        </div>
+    </div>
+
+    <!-- Include ODIN from CDN -->
+    <script src="https://unpkg.com/odin-storage@latest/dist/odin.umd.js"></script>
+    
+    <script>
+        // Initialize storage instances
+        const userStorage = new ODIN.AutoStorage('demo-user', {
+            username: {
+                settings: { 
+                    defaultValue: 'Anonymous', 
+                    storageType: ODIN.STORAGE_TYPE.LOCAL 
+                }
+            },
+            email: {
+                settings: { 
+                    defaultValue: '', 
+                    storageType: ODIN.STORAGE_TYPE.LOCAL 
+                }
+            }
+        });
+
+        const secretStorage = new ODIN.SecretStorage('demo-secrets', {
+            secretMessage: {
+                settings: { 
+                    storageType: ODIN.STORAGE_TYPE.LOCAL,
+                    defaultValue: 'No secret stored yet'
+                }
+            }
+        });
+
+        const syncStorage = new ODIN.SuperStorage(
+            new ODIN.AutoStorage('demo-sync', {
+                data: {
+                    settings: { 
+                        storageType: ODIN.STORAGE_TYPE.LOCAL,
+                        defaultValue: 'No data'
+                    }
+                }
+            }),
+            2000, // Sync every 2 seconds
+            (batch) => {
+                document.getElementById('syncOutput').textContent = 
+                    `🔄 Syncing to server: ${JSON.stringify(batch, null, 2)}`;
+            }
+        );
+
+        // Basic storage functions
+        function saveUserData() {
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            
+            userStorage.set.username(username);
+            userStorage.set.email(email);
+            
+            document.getElementById('userOutput').textContent = 
+                `✅ Data saved!\nUsername: ${username}\nEmail: ${email}`;
+        }
+
+        function loadUserData() {
+            const username = userStorage.get.username();
+            const email = userStorage.get.email();
+            
+            document.getElementById('userOutput').textContent = 
+                `📖 Loaded data:\nUsername: ${username}\nEmail: ${email}`;
+        }
+
+        function clearUserData() {
+            userStorage.set.username('Anonymous');
+            userStorage.set.email('');
+            document.getElementById('userOutput').textContent = '🗑️ Data cleared!';
+        }
+
+        // Secret storage functions
+        async function saveSecret() {
+            const password = document.getElementById('password').value;
+            const secret = document.getElementById('secret').value;
+            
+            try {
+                await secretStorage.logIn(password);
+                await secretStorage.set.secretMessage(secret);
+                document.getElementById('secretOutput').textContent = '🔒 Secret saved successfully!';
+            } catch (error) {
+                document.getElementById('secretOutput').textContent = `❌ Error: ${error.message}`;
+            }
+        }
+
+        async function loadSecret() {
+            const password = document.getElementById('password').value;
+            
+            try {
+                const authResult = await secretStorage.logIn(password);
+                if (authResult.loggedIn) {
+                    const secret = await secretStorage.get.secretMessage();
+                    document.getElementById('secretOutput').textContent = `🔓 Secret: ${secret}`;
+                } else {
+                    document.getElementById('secretOutput').textContent = '❌ Wrong password!';
+                }
+            } catch (error) {
+                document.getElementById('secretOutput').textContent = `❌ Error: ${error.message}`;
+            }
+        }
+
+        // Storage type demo
+        function demoStorageTypes() {
+            const memoryStorage = new ODIN.AutoStorage('memory-demo', {
+                data: { settings: { storageType: ODIN.STORAGE_TYPE.MEMORY, defaultValue: 'Memory data' } }
+            });
+            
+            const sessionStorage = new ODIN.AutoStorage('session-demo', {
+                data: { settings: { storageType: ODIN.STORAGE_TYPE.SESSION, defaultValue: 'Session data' } }
+            });
+            
+            const localStorage = new ODIN.AutoStorage('local-demo', {
+                data: { settings: { storageType: ODIN.STORAGE_TYPE.LOCAL, defaultValue: 'Local data' } }
+            });
+
+            document.getElementById('storageOutput').textContent = 
+                `🧠 Memory: ${memoryStorage.get.data()}\n` +
+                `🔄 Session: ${sessionStorage.get.data()}\n` +
+                `💾 Local: ${localStorage.get.data()}\n\n` +
+                `ℹ️ Memory: Lost on page refresh\n` +
+                `ℹ️ Session: Lost on browser close\n` +
+                `ℹ️ Local: Persists until manually cleared`;
+        }
+
+        // Auto-sync functions
+        function startSync() {
+            const data = document.getElementById('syncData').value;
+            syncStorage.set.data(data);
+            document.getElementById('syncOutput').textContent = '🚀 Auto-sync started! Check console for sync events.';
+        }
+
+        function stopSync() {
+            syncStorage.killInterval();
+            document.getElementById('syncOutput').textContent = '⏹️ Auto-sync stopped!';
+        }
+
+        // Initialize the demo
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('userOutput').textContent = '👋 Welcome to ODIN Storage Demo! Try the examples above.';
+        });
+    </script>
+</body>
+</html>

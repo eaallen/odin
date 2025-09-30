@@ -1,0 +1,67 @@
+{
+  "name": "odin-storage",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "On-Demand Information Nexus - A powerful JavaScript library for client-side storage with encryption and auto-sync capabilities",
+  "main": "dist/odin.cjs.js",
+  "module": "dist/odin.esm.js",
+  "browser": "dist/odin.umd.js",
+  "types": "dist/odin.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "storage",
+    "localStorage",
+    "sessionStorage",
+    "encryption",
+    "client-side",
+    "browser",
+    "data-persistence",
+    "auto-sync",
+    "javascript",
+    "typescript"
+  ],
+  "author": "Elijah Allen <elijah.a.allen@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eaallen/odin"
+  },
+  "bugs": {
+    "url": "https://github.com/eaallen/odin/issues"
+  },
+  "homepage": "https://github.com/eaallen/odin#readme",
+  "devDependencies": {
+    "@babel/core": "^7.23.6",
+    "@babel/preset-env": "^7.23.6",
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@types/jest": "^29.5.8",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "rollup": "^4.6.1",
+    "rollup-plugin-dts": "^6.1.0",
+    "typescript": "^5.2.2"
+  },
+  "peerDependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
